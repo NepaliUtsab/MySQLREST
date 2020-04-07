@@ -16,24 +16,6 @@ function getNewConnection() {
   })
 }
 
-// router.get('/testdb', (request, response) => {
-//   const connection = getNewConnection();
-//   const queryString = 'Select * FROM users'
-
-//   connection.query(queryString, (err, rows, fields) => {
-//     console.log('Something happened');
-//     response.json(rows);
-//     console.log('Logging')
-//     console.log(err)
-//     console.log(rows)
-//     console.log(fields)
-//   });
-// });
-
-/* 
- * Router can be handled in a very similar way as app
- */
-
 /* 
  * The concept of returning all users is not recommended in an actual
  * application since gives away the information of all users
