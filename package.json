@@ -5,7 +5,11 @@
   "repository": "https://ecoelhor@github.com/ecoelhor/NodeServerTest.git",
   "author": "Eduardo Reis <eduardo4jesus@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
   }
 }
