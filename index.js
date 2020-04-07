@@ -1,18 +1,20 @@
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
 app.use(express.json());
+// app.use(morgan('short'));
+app.use(morgan('combined'));
 
-// app.get('/', (request, response) => {
 app.get('/users', (request, response) => {
-  console.log(`Request received`)
+  // console.log(`Request received`)
 
   /* Query Params */
-  console.log(`Query ${request.query}`)
-  console.log('Query ' + request.query)
-  console.log(request.query)
-  console.log(`Query ${JSON.stringify(request.query)}`)
-  console.log(`Query ${request.query['name']}`)
+  // console.log(`Query ${request.query}`)
+  // console.log('Query ' + request.query)
+  // console.log(request.query)
+  // console.log(`Query ${JSON.stringify(request.query)}`)
+  // console.log(`Query ${request.query['name']}`)
   response.json({message: 'Hello World'});
 })
 
