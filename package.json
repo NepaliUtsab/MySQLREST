@@ -1,0 +1,11 @@
+{
+  "name": "NodeServerTest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://ecoelhor@github.com/ecoelhor/NodeServerTest.git",
+  "author": "Eduardo Reis <eduardo4jesus@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
