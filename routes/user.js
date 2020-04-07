@@ -43,7 +43,9 @@ router.get('/users', (request, response) => {
   const queryString = 'Select * FROM users'
 
   connection.query(queryString, (err, rows, fields) => {
-    if (err != null) {
+    if (err) {
+      console.error('Failed to execute query:')
+      console.err(queryString)
       console.error(err)
       response.sendStatus(500);
     }
@@ -52,10 +54,19 @@ router.get('/users', (request, response) => {
 })
 
 router.get('/user/:id', (request, response) => {
-  // console.log(`Fetching user with id: ${request.params['id']}`)
-  console.log(`Fetching user with id: ${request.params.id}`) // More elegant
-  const user1 = { first_name : 'John', last_name: 'Doe', age: '20', }
-  response.json(user1);
+  const connection = getNewConnection();
+  const queryString = 'Select * FROM users where id = ?'
+  const userId = request.params.id
+
+  connection.query(queryString, [userId], (err, rows, fields) => {
+    if (err) {
+      console.error('Failed to execute query:')
+      console.err(queryString)
+      console.error(err)
+      response.sendStatus(500);
+    }
+    response.json(rows[0]);
+  });
 })
 
 router.delete('/user/:id', (request, response) => {
@@ -65,9 +76,22 @@ router.delete('/user/:id', (request, response) => {
 })
 
 router.post('/user', (request, response) => {
-  console.log(`Adding user: `, request.body)
-  const user1 = { first_name : 'John', last_name: 'Doe', age: '20', }
-  response.json(user1);
+  const connection = getNewConnection();
+  const queryString  = 'INSERT INTO users VALUES (NULL, ?, ?, ?);'
+  const user = request.body;
+  const params = [user.firstName, user.lastName, user.age];
+  console.log(params);
+
+  connection.query(queryString, params, (err, rows, fields) => {
+    if (err) {
+      console.error('Failed to execute query:')
+      console.error(queryString)
+      console.error(err)
+      response.sendStatus(500);
+    }
+    console.log(rows);
+    response.sendStatus(200);
+  });
 })
 
 module.exports = router;
