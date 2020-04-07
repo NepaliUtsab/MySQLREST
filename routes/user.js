@@ -104,4 +104,26 @@ router.post('/user', (request, response) => {
   });
 })
 
+router.put('/user', (request, response) => {
+  const connection = getNewConnection();
+  const userId = request.body.id;
+  delete request.body.id;
+
+  const newEntries = Object.entries(request.body);
+  const newValues = newEntries.map(([key, value]) => {
+    return `${key} = '${value}'`;
+  }).join(', ');
+  const queryString  = `update users set ${newValues} where id = ${userId};`
+  connection.query(queryString, null, (err, rows, fields) => {
+    if (err) {
+      console.error('Failed to execute query:')
+      console.error(queryString)
+      console.error(err)
+      response.sendStatus(500);
+    }
+    console.log(rows);
+    response.sendStatus(200);
+  });
+})
+
 module.exports = router;
