@@ -70,9 +70,19 @@ router.get('/user/:id', (request, response) => {
 })
 
 router.delete('/user/:id', (request, response) => {
-  console.log(`Deleting user with id: ${request.params.id}`)
-  const user1 = { first_name : 'John', last_name: 'Doe', age: '20', }
-  response.json(user1);
+  const connection = getNewConnection();
+  const queryString  = 'delete from users where id = ?;'
+  const userId = request.params.id;
+
+  connection.query(queryString, [userId], (err, rows, fields) => {
+    if (err) {
+      console.error('Failed to execute query:')
+      console.err(queryString)
+      console.error(err)
+      response.sendStatus(500);
+    }
+    response.sendStatus(200);
+  });
 })
 
 router.post('/user', (request, response) => {
