@@ -12,8 +12,8 @@ app.get('/', (request, response) => {
   /* Sending Messages */
   // response.send('Welcome to our website');
 
-  /* Sending Status Code
-  // response.sendStatus(200)
+  /* Sending Status Code */
+  response.sendStatus(200)
   // response.sendStatus(403)
   // response.sendStatus(404)
   // response.sendStatus(500)
