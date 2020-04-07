@@ -3,41 +3,35 @@ const morgan = require('morgan');
 
 const app = express();
 app.use(express.json());
-// app.use(morgan('short'));
 app.use(morgan('combined'));
 
+/* 
+ * The concept of returning all users is not recommended in an actual
+ * application since gives away the information of all users
+ */
 app.get('/users', (request, response) => {
-  // console.log(`Request received`)
-
-  /* Query Params */
-  // console.log(`Query ${request.query}`)
-  // console.log('Query ' + request.query)
-  // console.log(request.query)
-  // console.log(`Query ${JSON.stringify(request.query)}`)
-  // console.log(`Query ${request.query['name']}`)
-  response.json({message: 'Hello World'});
+  const user1 = { first_name : 'John', last_name: 'Doe', age: '20', }
+  const user2 = { first_name : 'Peter', last_name: 'Rock', age: '54', }
+  response.json([user1, user2]);
 })
 
-app.delete('/users/:id/:age', (request, response) => {
-  console.log(`Request received`)
-
-  /* Route Params */
-  console.log(request.params)
-
-  response.json({message: 'Hello World'});
+app.get('/user/:id', (request, response) => {
+  // console.log(`Fetching user with id: ${request.params['id']}`)
+  console.log(`Fetching user with id: ${request.params.id}`) // More elegant
+  const user1 = { first_name : 'John', last_name: 'Doe', age: '20', }
+  response.json(user1);
 })
 
-app.post('/users', (request, response) => {
-  console.log(`Request received`)
+app.delete('/user/:id', (request, response) => {
+  console.log(`Deleting user with id: ${request.params.id}`)
+  const user1 = { first_name : 'John', last_name: 'Doe', age: '20', }
+  response.json(user1);
+})
 
-  /* 
-   * Body Params. By default returns undefined. 
-   * Enable json on the root of express to interpret it properly through out
-   * the app.
-   */
-  console.log(request.body)
-
-  response.json({message: 'Hello World'});
+app.post('/user', (request, response) => {
+  console.log(`Adding user: `, request.body)
+  const user1 = { first_name : 'John', last_name: 'Doe', age: '20', }
+  response.json(user1);
 })
 
 app.listen(3333, () => {
