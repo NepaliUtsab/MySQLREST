@@ -72,17 +72,15 @@ router.post('/user', (request, response) => {
   const queryString  = 'INSERT INTO users VALUES (NULL, ?, ?, ?);'
   const user = request.body;
   const params = [user.firstName, user.lastName, user.age];
-  console.log(params);
 
-  connection.query(queryString, params, (err, rows, fields) => {
+  connection.query(queryString, params, (err, result, fields) => {
     if (err) {
       console.error('Failed to execute query:')
       console.error(queryString)
       console.error(err)
       response.sendStatus(500);
     }
-    console.log(rows);
-    response.sendStatus(200);
+    response.json({id: result.insertId})
   });
 })
 
@@ -96,14 +94,14 @@ router.put('/user', (request, response) => {
     return `${key} = '${value}'`;
   }).join(', ');
   const queryString  = `update users set ${newValues} where id = ${userId};`
-  connection.query(queryString, null, (err, rows, fields) => {
+  connection.query(queryString, null, (err, result, fields) => {
     if (err) {
       console.error('Failed to execute query:')
       console.error(queryString)
       console.error(err)
       response.sendStatus(500);
     }
-    console.log(rows);
+    console.log(result);
     response.sendStatus(200);
   });
 })
