@@ -1,8 +1,8 @@
 {
-  "name": "NodeServerTest",
+  "name": "MySQLREST",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://ecoelhor@github.com/ecoelhor/NodeServerTest.git",
+  "repository": "https://ecoelhor@github.com/ecoelhor/MySQLREST.git",
   "author": "Eduardo Reis <eduardo4jesus@gmail.com>",
   "license": "MIT",
   "scripts": {
